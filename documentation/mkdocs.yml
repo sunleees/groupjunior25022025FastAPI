@@ -1,0 +1,6 @@
+site_name: FAST-API PROJECT
+
+
+nav:
+  - About: index.md
+  - Tasks: tasks.md
