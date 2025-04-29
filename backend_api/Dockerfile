@@ -1,4 +1,4 @@
-FROM python:3.13-slim
+FROM python:3.12-slim
 
 WORKDIR /app
 
@@ -11,5 +11,6 @@ RUN pip install --upgrade pip \
 COPY pyproject.toml poetry.lock /app/
 RUN poetry install --no-ansi --no-root --no-interaction
 
+COPY /app /app
 
 EXPOSE 9999
