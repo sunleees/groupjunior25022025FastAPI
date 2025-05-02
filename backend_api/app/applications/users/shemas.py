@@ -2,11 +2,8 @@ from pydantic import BaseModel, EmailStr, Field, model_validator, ValidationInfo
 
 
 class BaseFields(BaseModel):
-    email: EmailStr = (
-        Field(
-            description="User email",
-            examples=["arturkovalchuk497@gmail.com , arturrkovalchuk09gmail.com"],
-        ),
+    email: EmailStr = Field(
+        description="User email", examples=["test_hillel_api_mailing@ukr.net"]
     )
     name: str = Field(description="User nickname", examples=["Casper"])
 
@@ -24,7 +21,7 @@ class PasswordField(BaseModel):
             raise ValueError("Too short password")
 
         if " " in password:
-            raise ValueError("No spaces in password")
+            raise ValueError("No spaces in password, please")
 
         return values
 
