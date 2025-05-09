@@ -1,3 +1,4 @@
+version: "3.8"
 
 services:
   documentation:
@@ -33,6 +34,8 @@ services:
     restart: always
     env_file:
       - .env
+    volumes:
+      - ./backend_api/app:/app
     ports:
       - "9999:9999"
     command: |
@@ -41,8 +44,6 @@ services:
       "
     networks:
       - main_network
-    volumes:
-      - ./backend_api/app:/app
 
 networks:
   main_network:
