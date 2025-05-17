@@ -1,12 +1,8 @@
-from fastapi import APIRouter, Depends, status
-from fastapi import APIRouter, Depends, status
-from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import select
 
 from applications.auth.password_handler import PasswordEncrypt
-from applications.database.session_dependencies import get_async_session
 from applications.users.models import User
-from applications.users.shemas import RegisterUserFields, BaseFields
 
 
 async def create_user_in_db(email, name, password, session: AsyncSession):
