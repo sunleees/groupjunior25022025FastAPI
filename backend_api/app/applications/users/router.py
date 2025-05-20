@@ -1,12 +1,8 @@
-from fastapi import APIRouter, Depends, status
-from fastapi import APIRouter, Depends, status
-from sqlalchemy.ext.asyncio import AsyncSession
-
-from applications.auth.password_handler import PasswordEncrypt
 from applications.database.session_dependencies import get_async_session
 from applications.users.crud import create_user_in_db
-from applications.users.models import User
-from applications.users.shemas import RegisterUserFields, BaseFields
+from applications.users.shemas import BaseFields, RegisterUserFields
+from fastapi import APIRouter, Depends, status
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router_users = APIRouter()
 

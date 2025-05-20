@@ -1,10 +1,8 @@
-from fastapi import APIRouter, Depends
-from fastapi.security import OAuth2PasswordRequestForm
-
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from applications.auth.auth_handler import auth_handler
 from applications.database.session_dependencies import get_async_session
+from fastapi import APIRouter, Depends
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.ext.asyncio import AsyncSession
 
 router_auth = APIRouter()
 
