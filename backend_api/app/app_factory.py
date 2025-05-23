@@ -10,3 +10,4 @@ def get_application() -> FastAPI:
     app.include_router(router_auth, prefix="/auth", tags=["Auth"])
 
     return app
+
