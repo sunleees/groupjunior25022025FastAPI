@@ -16,4 +16,4 @@ RUN poetry install --no-ansi --no-root --no-interaction
 
 COPY /app /app
 
-EXPOSE 9999
+EXPOSE 12345

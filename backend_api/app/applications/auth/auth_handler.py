@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 import jwt
+
 from applications.auth.password_handler import PasswordEncrypt
 from applications.settings import settings
 from applications.users.crud import get_user_by_email
