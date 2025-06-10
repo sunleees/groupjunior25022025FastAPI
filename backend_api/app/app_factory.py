@@ -1,7 +1,15 @@
-from applications.auth.router import router_auth
-from applications.settings import settings
-from applications.users.router import router_users
 from fastapi import FastAPI
+
+from applications.auth.router import router_auth
+from applications.users.router import router_users
+from settings import settings
+
+import sentry_sdk
+
+sentry_sdk.init(
+    dsn=settings.SENTRY,
+    send_default_pii=True,
+)
 
 
 def get_application() -> FastAPI:
