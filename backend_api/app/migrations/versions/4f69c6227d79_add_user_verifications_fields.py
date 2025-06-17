@@ -1,8 +1,8 @@
 """add user verifications fields
 
-Revision ID: 4afc66eed6cd
+Revision ID: 4f69c6227d79
 Revises: 8843e88d2a23
-Create Date: 2025-06-17 17:16:53.151890
+Create Date: 2025-06-17 17:30:49.480524
 
 """
 from typing import Sequence, Union
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '4afc66eed6cd'
+revision: str = '4f69c6227d79'
 down_revision: Union[str, None] = '8843e88d2a23'
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
