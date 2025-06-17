@@ -1,8 +1,6 @@
 import uuid
-
 from fastapi import APIRouter, Depends, status, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from applications.database.session_dependencies import get_async_session
 from applications.users.crud import (
     create_user_in_db,
