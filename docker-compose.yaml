@@ -19,7 +19,7 @@ services:
     ports:
       - "6655:${POSTGRES_PORT}"
     volumes:
-      - postgres_datastorage:/var/lib/postgresgl/data
+      - postgres_datastorage:/var/lib/postgresql/data
     networks:
       - main_network
 
@@ -30,15 +30,18 @@ services:
     container_name: backend_api
     hostname: backend_api
     restart: always
+    depends_on:
+      - notification
     env_file:
       - .env
     volumes:
       - ./backend_api/app:/app
     ports:
       - "9999:9999"
+
     command: |
       sh -c "
-      alembic upgrade head && \
+      alembic upgrade head && \      
       uvicorn main:app --port=9999 --host=0.0.0.0 --reload
       "
     networks:
@@ -63,6 +66,22 @@ services:
       "
     networks:
       - main_network
+
+  notification:
+    build:
+      dockerfile: Dockerfile
+      context: ./notification_service
+    container_name: notification
+    hostname: notification
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - ./notification_service/app:/app
+    command: |
+      sh -c "
+      python /app/main.py
+      "
 
   nginx_2:
     image: nginx:alpine
