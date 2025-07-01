@@ -21,3 +21,6 @@ class Product(Base):
     price: Mapped[float] = mapped_column(nullable=False)
     main_image: Mapped[str] = mapped_column(nullable=False)
     images: Mapped[list[str]] = mapped_column(ARRAY(String), default=list)
+
+    def __str__(self):
+        return f"Product {self.title} - {self.id}"
