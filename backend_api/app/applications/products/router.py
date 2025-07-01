@@ -1,17 +1,15 @@
 from fastapi import APIRouter, Body, UploadFile, Depends
 import uuid
-
 from applications.database.session_dependencies import get_async_session
 from applications.products.crud import create_product_in_db
+from applications.products.schemas import ProductSchema
 from services.s3.s3 import s3_storage
 from sqlalchemy.ext.asyncio import AsyncSession
-
 from applications.users.crud import (
     create_user_in_db,
     get_user_by_email,
     activate_user_account,
 )
-
 
 products_router = APIRouter()
 
@@ -24,7 +22,7 @@ async def create_product(
     description: str = Body(max_length=1000),
     price: float = Body(gt=1),
     session: AsyncSession = Depends(get_async_session),
-):
+) -> ProductSchema:
     product_uuid = uuid.uuid4()
     main_image = await s3_storage.upload_product_image(
         main_image, product_uuid=product_uuid
@@ -35,7 +33,7 @@ async def create_product(
         url = await s3_storage.upload_product_image(image, product_uuid=product_uuid)
         images_urls.append(url)
 
-    await create_product_in_db(
+    created_product = await create_product_in_db(
         product_uuid=product_uuid,
         title=title,
         description=description,
@@ -44,7 +42,7 @@ async def create_product(
         images=images_urls,
         session=session,
     )
-    return
+    return created_product
 
 
 @products_router.get("/{pk}")
