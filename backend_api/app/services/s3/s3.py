@@ -27,4 +27,5 @@ class S3Storage:
         return url
 
 
+
 s3_storage = S3Storage()
