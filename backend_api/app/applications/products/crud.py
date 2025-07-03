@@ -1,4 +1,11 @@
+from typing import Annotated
+from fastapi import Depends
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy import asc, desc, select, func
+import math
+
 from applications.products.models import Product
+from applications.products.schemas import SearchParamsSchema, SortEnum, SortByEnum
 
 
 async def create_product_in_db(
@@ -25,3 +32,28 @@ async def create_product_in_db(
 
     await session.commit()
     return new_product
+
+
+async def get_products_data(params: SearchParamsSchema, session: AsyncSession):
+    query = select(Product)
+    count_query = select(func.count()).select_from(Product)
+
+    order_direction = asc if params.order_direction == SortEnum.ASC else desc
+
+    # if params.q:
+    sort_field = Product.price if params.sort_by == SortByEnum.PRICE else Product.id
+    query = query.order_by(order_direction(sort_field))
+    offset = (params.page - 1) * params.limit
+    query = query.offset(offset).limit(params.limit)
+
+    result = await session.execute(query)
+    result_count = await session.execute(count_query)
+    total = result_count.scalar()
+
+    return {
+        "items": [],  #
+        "total": total,
+        "page": params.page,
+        "limit": params.limit,
+        "pages": math.ceil(total / params.limit),
+    }
