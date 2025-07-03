@@ -51,7 +51,7 @@ async def get_products_data(params: SearchParamsSchema, session: AsyncSession):
     total = result_count.scalar()
 
     return {
-        "items": [],  #
+        "items": result.scalars().all(),
         "total": total,
         "page": params.page,
         "limit": params.limit,
