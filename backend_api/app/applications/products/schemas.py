@@ -1,5 +1,4 @@
 from enum import StrEnum
-
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
 
@@ -11,6 +10,20 @@ class ProductSchema(BaseModel):
     price: float
     main_image: str
     images: list[str]
+
+
+class CartProductSchema(BaseModel):
+    price: float
+    quantity: float
+    total: float
+    product: ProductSchema
+
+
+class CartSchema(BaseModel):
+    is_closed: bool
+    user_id: int
+    cost: float
+    cart_products: list[CartProductSchema]
 
 
 class SortEnum(StrEnum):
