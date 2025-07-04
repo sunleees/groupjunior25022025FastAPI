@@ -11,8 +11,10 @@ from applications.products.crud import (
     get_product_by_pk,
 )
 from applications.products.schemas import ProductSchema, SearchParamsSchema
+from applications.users.models import User
 from services.s3.s3 import s3_storage
 from sqlalchemy.ext.asyncio import AsyncSession
+
 
 products_router = APIRouter()
 

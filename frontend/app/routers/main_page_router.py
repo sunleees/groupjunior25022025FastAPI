@@ -7,6 +7,7 @@ from backend_api.api import (
     login_user,
     register_user,
     get_products,
+    get_product,
 )
 
 router = APIRouter()
@@ -26,6 +27,21 @@ async def index(
     if user.get("name"):
         context["user"] = user
     response = templates.TemplateResponse("index.html", context=context)
+    return response
+
+
+@router.get("/product/{product_id}")
+async def product_detail(
+    request: Request, product_id: int, user: dict = Depends(get_current_user_with_token)
+):
+    product = await get_product(product_id)
+    context = {
+        "request": request,
+        "product": product,
+    }
+    if user.get("name"):
+        context["user"] = user
+    response = templates.TemplateResponse("product_detail.html", context=context)
     return response
 
 
