@@ -7,6 +7,7 @@ from backend_api.api import (
     login_user,
     register_user,
     get_products,
+    get_product,
 )
 
 router = APIRouter()
@@ -33,10 +34,10 @@ async def index(
 async def product_detail(
     request: Request, product_id: int, user: dict = Depends(get_current_user_with_token)
 ):
-    # products = await get_products(query)
+    product = await get_product(product_id)
     context = {
         "request": request,
-        # "product": product,
+        "product": product,
     }
     if user.get("name"):
         context["user"] = user
